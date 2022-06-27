@@ -10,10 +10,14 @@ menu = [{'title': 'About', 'url_name': 'about'},
 
 def index(request):
     posts = Post.objects.all()
+    roles = Role.objects.all()
     context = {
         'posts': posts,
         'menu': menu,
-        'title': 'Main'}
+        'roles': roles,
+        'title': 'Main',
+        'role_selected': 0,
+        }
     return render(request, 'rockers/index.html', context=context)
 
 
@@ -39,3 +43,20 @@ def login(request):
 
 def show_post(request, post_id):
     return HttpResponse(f"Article with id number = {post_id}")
+
+
+def show_role(request, role_id):
+    posts = Post.objects.filter(role_id=role_id)
+    roles = Role.objects.all()
+
+    if len(posts) == 0:
+        raise Http404()
+
+    context = {
+        'posts': posts,
+        'menu': menu,
+        'roles': roles,
+        'title': 'Main',
+        'role_selected': role_id,
+        }
+    return render(request, 'rockers/index.html', context=context)
