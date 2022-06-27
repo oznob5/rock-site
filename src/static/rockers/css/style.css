@@ -1,0 +1,129 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.grid {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas: 
+      "header  header"
+      "sidebar content"
+      "footer  footer";
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* HEADER */
+.header {
+    margin: 2em;
+    grid-area: header;
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    border-radius: 12px;
+}
+
+.header a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.header__section {
+    display: flex;
+    align-items: center;
+}
+
+.header__item {
+    padding: 10px 15px;
+    font-size: 20px;
+    margin-left: 25px;
+}
+
+.header__item:hover {
+    background-color: rgb(255, 161, 37);
+    border-radius: 3px;
+}
+
+.header__logo {
+    margin-right: 30px;
+    width: 90px;
+    height: 80px;
+}
+
+.logo {
+    background: url('../images/logo.png') no-repeat 10px 10px;
+    background-size: 80px 80px;
+    width: 90px;
+    height: 80px;
+}
+
+/* MAIN CONTENT */
+.content {
+    grid-area: content;
+    font-size: 20px;
+    margin: 0 32px;
+}
+
+.link-read-post {
+    display: flex;
+    justify-content: right;
+}
+
+.content a {
+    text-decoration: none;
+    border-radius: 12px;
+    padding: 10px 15px;
+    background: #000;
+    color: #fff;
+}
+
+/* .article {
+    margin-bottom: 50px;
+} */
+
+/* SIDEBAR */
+.sidebar {
+    grid-area: sidebar;
+    background-color: #000;
+    color: #fff;
+    border-radius: 12px;
+    margin-left: 2em;
+}
+
+.sidebar li {
+    padding: 10px 10px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 20px;
+}
+
+.sidebar a:hover{
+    background-color: rgb(255, 161, 37);
+    border-radius: 3px;
+}
+
+/* FOOTER */
+.footer {
+    grid-area: footer;
+    color: #fff;
+    background-color: #676665;
+    margin: 0 2em 2em 2em;
+    border-radius: 12px;
+}
+
+.footer p {
+    padding-left: 50px;
+}
+  

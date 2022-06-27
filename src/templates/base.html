@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{% static 'rockers/css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'rockers/images/favicon.ico' %}" type="image/x-icon">
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+</head>
+<body>
+    <div class="grid">
+        <header class="header">
+            <div class="header__section">
+                <div class="header__logo"><a href="{% url 'home' %}"><div class="logo"></div></a></div>
+                {% for m in menu %}
+                    <div class="header__item headerButton"><a href="{% url m.url_name %}">{{m.title}}</a></div>
+                {% endfor %}
+            </div>
+            <div class="header__section">
+                <div class="header__item headerButton"><a href="">Sign in</a></div>
+            </div>
+        </header>
+        <section class="sidebar">
+            <ul>
+                <li><a href="">All categories</a></li>
+                <li><a href="#">Vocalists</a></li>
+                <li><a href="#">Drummers</a></li>
+                <li><a href="#">Guitar players</a></li>
+                <li><a href="#">Bass guitar players</a></li>
+            </ul>
+        </section>
+        <section class="content">   
+            {% block content%}
+            {% endblock %} 
+        </section>
+        <footer class="footer">
+            <p>&copy; 2o22 Partial or complete copying of information from this site for distribution on other resources, including paper ones, is strictly prohibited.</p>
+        </footer>
+    </div>
+</body>
+</html>
