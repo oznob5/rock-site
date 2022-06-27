@@ -25,11 +25,19 @@
         </header>
         <section class="sidebar">
             <ul>
-                <li><a href="">All categories</a></li>
-                <li><a href="#">Vocalists</a></li>
-                <li><a href="#">Drummers</a></li>
-                <li><a href="#">Guitar players</a></li>
-                <li><a href="#">Bass guitar players</a></li>
+                {% if role_selected == 0 %}
+                    <li class="selected">All categories</li>
+                {% else %}
+                    <li><a href="{% url 'home' %}">All categories</a></li>
+                {% endif %}
+
+                {% for role in roles %}
+                    {% if role.pk == role_selected %}
+                        <li class="selected">{{role.activity}}</li>
+                    {% else %}
+                        <li><a href="{{role.get_absolute_url}}">{{role.activity}}</a></li>
+                    {% endif %}
+                {% endfor %}
             </ul>
         </section>
         <section class="content">   
