@@ -23,7 +23,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):  # unique route to element
         # name of urlpattern, {name_of_param: what I want to get}
-        return reverse('post', kwargs={'post_id': self.pk}) 
+        return reverse('post', kwargs={'post_slug': self.slug}) 
 
     class Meta:
         verbose_name = 'Rocker'
@@ -41,7 +41,7 @@ class Role(models.Model):
         return self.activity
 
     def get_absolute_url(self):
-        return reverse('role', kwargs={'role_id': self.pk})
+        return reverse('role', kwargs={'role_slug': self.slug})
 
     class Meta:
         verbose_name = 'Role'

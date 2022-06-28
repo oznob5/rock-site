@@ -1,5 +1,5 @@
                 {% for role in roles %}
-                    {% if role.pk == role_selected %}
+                    {% if role.slug == role_selected %}
                         <li class="selected">{{role.activity}}</li>
                     {% else %}
                         <li><a href="{{role.get_absolute_url}}">{{role.activity}}</a></li>

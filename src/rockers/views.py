@@ -1,20 +1,12 @@
 from django.http import Http404, HttpResponse, HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import *
-
-
-menu = [{'title': 'About', 'url_name': 'about'},
-        {'title': 'Add an article', 'url_name': 'add_article'},
-        {'title': 'Feedback', 'url_name': 'feedback'},]
 
 
 def index(request):
     posts = Post.objects.all()
-    roles = Role.objects.all()
     context = {
         'posts': posts,
-        'menu': menu,
-        'roles': roles,
         'title': 'Main',
         'role_selected': 0,
         }
@@ -23,7 +15,6 @@ def index(request):
 
 def about(request):
     context = {
-        'menu': menu,
         'title': 'About Page'
     }
     return render(request, 'rockers/about.html', context=context)
@@ -41,22 +32,28 @@ def login(request):
     return HttpResponse("<h1>Sign In PAge</h1>")
 
 
-def show_post(request, post_id):
-    return HttpResponse(f"Article with id number = {post_id}")
+def show_post(request, post_slug):
+    post = get_object_or_404(Post, slug=post_slug)
+
+    context = {
+        'post': post,
+        'title': post.name,
+        'role_selected': post.role_id,
+    }
+
+    return render(request, 'rockers/post.html', context=context)
 
 
-def show_role(request, role_id):
-    posts = Post.objects.filter(role_id=role_id)
-    roles = Role.objects.all()
+def show_role(request, role_slug):
+    role = get_object_or_404(Role, slug=role_slug)
+    posts = get_list_or_404(Post, role_id=role.id)
 
     if len(posts) == 0:
         raise Http404()
 
     context = {
         'posts': posts,
-        'menu': menu,
-        'roles': roles,
         'title': 'Main',
-        'role_selected': role_id,
+        'role_selected': role_slug,
         }
     return render(request, 'rockers/index.html', context=context)
