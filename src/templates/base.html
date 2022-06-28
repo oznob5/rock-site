@@ -1,4 +1,5 @@
 {% load static %}
+{% load rockers_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,13 +32,8 @@
                     <li><a href="{% url 'home' %}">All categories</a></li>
                 {% endif %}
 
-                {% for role in roles %}
-                    {% if role.pk == role_selected %}
-                        <li class="selected">{{role.activity}}</li>
-                    {% else %}
-                        <li><a href="{{role.get_absolute_url}}">{{role.activity}}</a></li>
-                    {% endif %}
-                {% endfor %}
+                {% show_roles '-activity' role_selected %}
+
             </ul>
         </section>
         <section class="content">   

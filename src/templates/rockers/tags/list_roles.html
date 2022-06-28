@@ -1,0 +1,7 @@
+                {% for role in roles %}
+                    {% if role.pk == role_selected %}
+                        <li class="selected">{{role.activity}}</li>
+                    {% else %}
+                        <li><a href="{{role.get_absolute_url}}">{{role.activity}}</a></li>
+                    {% endif %}
+                {% endfor %}
