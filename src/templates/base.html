@@ -16,9 +16,9 @@
         <header class="header">
             <div class="header__section">
                 <div class="header__logo"><a href="{% url 'home' %}"><div class="logo"></div></a></div>
-                {% for m in menu %}
-                    <div class="header__item headerButton"><a href="{% url m.url_name %}">{{m.title}}</a></div>
-                {% endfor %}
+
+                {% show_menu %}
+
             </div>
             <div class="header__section">
                 <div class="header__item headerButton"><a href="">Sign in</a></div>
