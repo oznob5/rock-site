@@ -120,6 +120,14 @@ ul {
     color: #fff;
 }
 
+.form__form {
+    margin: 1em;
+}
+
+.form__form > .form__label{
+    margin-right: 3em;
+}
+
 /* SIDEBAR */
 .sidebar {
     grid-area: sidebar;

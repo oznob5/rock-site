@@ -1,6 +1,7 @@
 from django.http import Http404, HttpResponse, HttpResponseNotFound
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from .models import *
+from .forms import *
 
 
 def index(request):
@@ -10,18 +11,33 @@ def index(request):
         'title': 'Main',
         'role_selected': 0,
         }
-    return render(request, 'rockers/index.html', context=context)
+    return render(request, 'rockers/index.html', context)
 
 
 def about(request):
     context = {
         'title': 'About Page'
     }
-    return render(request, 'rockers/about.html', context=context)
+    return render(request, 'rockers/about.html', context)
 
 
 def add_article(request):
-    return HttpResponse("Page which adding an article")
+    if request.method == "POST":
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            try:
+                Post.objects.create(**form.cleaned_data)
+                return redirect('home')
+            except:
+                form.add_error(None, "Post add error")
+    else:
+        form = AddPostForm()
+
+    context = {
+        'form': form,
+        'title': 'Add an article'
+    }
+    return render(request, 'rockers/add_article.html', context)
 
 
 def feedback(request):
@@ -41,7 +57,7 @@ def show_post(request, post_slug):
         'role_selected': post.role_id,
     }
 
-    return render(request, 'rockers/post.html', context=context)
+    return render(request, 'rockers/post.html', context)
 
 
 def show_role(request, role_slug):
@@ -56,4 +72,4 @@ def show_role(request, role_slug):
         'title': 'Main',
         'role_selected': role_slug,
         }
-    return render(request, 'rockers/index.html', context=context)
+    return render(request, 'rockers/index.html', context)
