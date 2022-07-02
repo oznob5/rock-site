@@ -1,10 +1,19 @@
 from django import forms
 from .models import *
+from django.core.exceptions import ValidationError
 
 
-class AddPostForm(forms.Form):
-    name = forms.CharField(max_length=255, label='Name of Rocker')
-    slug = forms.SlugField(max_length=255, label='URL')
-    content = forms.CharField(widget=forms.Textarea(attrs={'cols': 60, 'rows': 10}), label='Content')
-    is_published = forms.BooleanField(label='Needed to be published?', initial=True)
-    role = forms.ModelChoiceField(queryset=Role.objects.all(), label='Role', empty_label='Role is not choosen')
+class AddPostForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['role'].empty_label = "Role is not selected"
+
+    def clean_name(self):
+        name = self.cleaned_data['name']  # get data from form
+        if len(name) > 50:
+            raise ValidationError('Length of the name if more than 50 chars')
+        return name
+
+    class Meta:
+        model = Post
+        fields = ['name', 'slug', 'content', 'photo', 'is_published', 'role']
